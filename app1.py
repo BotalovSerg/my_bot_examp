@@ -1,8 +1,12 @@
 from aiogram import Bot, Dispatcher, executor, types
 
-TOKEN = "5361419831:AAF1tMmHcjI8_QvrBb3yDujqV9gXz9KreXc"
+from config.config import load_config
 
-bot = Bot(token=TOKEN)
+
+conf = load_config('.env')
+
+
+bot = Bot(token=conf.tg_bot.token)
 dp = Dispatcher(bot)
 
 

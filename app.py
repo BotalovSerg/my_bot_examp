@@ -1,10 +1,12 @@
 from aiogram import Bot, Dispatcher, executor, types
 import motor.motor_asyncio
 from datetime import datetime
+from config.config import load_config
 
-TOKEN = "5361419831:AAF1tMmHcjI8_QvrBb3yDujqV9gXz9KreXc"
+conf = load_config('.env')
 
-bot = Bot(token=TOKEN)
+
+bot = Bot(token=conf.tg_bot.token)
 dp = Dispatcher(bot)
 
 cluster = motor.motor_asyncio.AsyncIOMotorClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0")
