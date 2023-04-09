@@ -1,3 +1,4 @@
+import json
 import pymongo
 import datetime as dt
 from dateutil.relativedelta import relativedelta
@@ -58,7 +59,7 @@ def main_app(dt_from, dt_upto, group_type):
        res["dataset"].append(val)
        res["labels"].append(key)
 
-    return res
+    return json.dumps(res)
 
 
 
