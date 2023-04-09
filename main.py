@@ -3,7 +3,7 @@ import datetime as dt
 from dateutil.relativedelta import relativedelta
 #client = pymongo.MongoClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0")
 client = pymongo.MongoClient("mongodb://127.0.0.1:27017")
-db = client.newdb_1
+db = client.newdb
 coll = db.sample_collection
 
 def init_dict(st, fn, gr):
@@ -38,7 +38,8 @@ def get_key(dt_data, agr):
 
  
 def main_app(dt_from, dt_upto, group_type):
-    
+    dt_from = dt.datetime.strptime(dt_from, "%Y-%m-%dT%H:%M:%S")
+    dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
     d = init_dict(dt_from, dt_upto, group_type)
     
     for val in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
@@ -57,16 +58,11 @@ def main_app(dt_from, dt_upto, group_type):
        res["dataset"].append(val)
        res["labels"].append(key)
 
-    return "res"
+    return res
 
 
 
 #dt_from = dt.datetime.strptime("2022-02-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
 #dt_upto = dt.datetime.strptime("2022-02-02T00:00:00", "%Y-%m-%dT%H:%M:%S")
 #group_type = "hour"
-
-#
-#
 #print(main_app(dt_from, dt_upto, gro))
-
-['{\n   "dt_from": "2022-10-01T00:00:00",\n   "dt_upto": "2022-11-30T23:59:00",\n   "group_type": "day"\n}']

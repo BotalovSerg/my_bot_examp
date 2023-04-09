@@ -1,5 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
-
+import json
 from config.config import load_config
 from main import main_app
 
@@ -18,12 +18,14 @@ async def start(message: types.Message):
     
 @dp.message_handler(content_types=['text'])
 async def msg(message: types.Message):
-    #msg = message.text[1:-1].split(',')
-    #dt_from, dt_upto, group_type = message.text.split(', ')
-    print(message.text.split(', '))
-    #print(main_app(dt_from, dt_upto, group_type))
-        
-    await bot.send_message(message.chat.id, "Loading>>>>")
+    msg = json.loads(message.text)    
+    dt_from = msg['dt_from']
+    dt_upto = msg['dt_upto']
+    group_type = msg['group_type']
+
+    result = main_app(dt_from, dt_upto, group_type)
+            
+    await bot.send_message(message.chat.id, result)
     
 
 
