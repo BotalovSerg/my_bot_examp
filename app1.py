@@ -22,7 +22,7 @@ async def msg(message: types.Message):
     dt_from = msg['dt_from']
     dt_upto = msg['dt_upto']
     group_type = msg['group_type']
-
+    print(msg)
     result = main_app(dt_from, dt_upto, group_type)
             
     await bot.send_message(message.chat.id, result)

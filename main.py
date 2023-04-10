@@ -21,7 +21,7 @@ def init_dict(st, fn, gr):
             tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
             st += relativedelta(days=+1)
         return tmp
-    elif gr == "hour":        
+    elif gr == "hour" and st.day != fn.day:            
         for i in range(25):
             tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
             st += relativedelta(hours=+1)
@@ -42,7 +42,9 @@ def main_app(dt_from, dt_upto, group_type):
     dt_from = dt.datetime.strptime(dt_from, "%Y-%m-%dT%H:%M:%S")
     dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
     d = init_dict(dt_from, dt_upto, group_type)
-    
+    if d is None:
+        return "Не допустимый запрос"
+
     for val in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
         #print(val)
         #key = str(val["dt"].year) + "/" + str(val["dt"].month)
