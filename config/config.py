@@ -14,7 +14,7 @@ class Config:
 
 
 # Создаем функцию, которая будет читать файл .env и
-# возвращать экземпляр класса Config с заполненными полями token и admin_ids
+# возвращать экземпляр класса Config с заполненными полями token
 def load_config(path: str):
     env = Env()
     env.read_env(path)
