@@ -65,7 +65,7 @@ def main_app(dt_from, dt_upto, group_type):
 
 
 
-#dt_from = dt.datetime.strptime("2022-02-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
-#dt_upto = dt.datetime.strptime("2022-02-02T00:00:00", "%Y-%m-%dT%H:%M:%S")
-#group_type = "hour"
-#print(main_app(dt_from, dt_upto, gro))
+# dt_from = dt.datetime.strptime("2022-02-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
+# dt_upto = dt.datetime.strptime("2022-02-02T00:00:00", "%Y-%m-%dT%H:%M:%S")
+# group_type = "hour"
+# print(main_app(dt_from, dt_upto, "month"))
