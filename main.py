@@ -39,11 +39,16 @@ def get_key(dt_data, agr):
 
  
 def main_app(dt_from, dt_upto, group_type):
-    # dt_from = dt.datetime.strptime(dt_from, "%Y-%m-%dT%H:%M:%S")
-    # dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
+    dt_from = dt.datetime.strptime(dt_from, "%Y-%m-%dT%H:%M:%S")
+    dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
     d = init_dict(dt_from, dt_upto, group_type)
     if d is None:
-        return "Не допустимый запрос"
+        return """
+        Допустимо отправлять только следующие запросы:
+    {"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}
+    {"dt_from": "2022-10-01T00:00:00", "dt_upto": "2022-11-30T23:59:00", "group_type": "day"}
+    {"dt_from": "2022-02-01T00:00:00", "dt_upto": "2022-02-02T00:00:00", "group_type": "hour"}
+        """
 
     for val in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
         #print(val)
@@ -65,7 +70,7 @@ def main_app(dt_from, dt_upto, group_type):
 
 
 
-dt_from = dt.datetime.strptime("2022-10-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
-dt_upto = dt.datetime.strptime("2022-11-30T23:59:00", "%Y-%m-%dT%H:%M:%S")
-group_type = "day"
-print(main_app(dt_from, dt_upto, group_type))
+# dt_from = dt.datetime.strptime("2022-10-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
+# dt_upto = dt.datetime.strptime("2022-11-30T23:59:00", "%Y-%m-%dT%H:%M:%S")
+# group_type = "day"
+# print(main_app(dt_from, dt_upto, group_type))
