@@ -15,18 +15,26 @@ def init_dict(st, fn, gr):
             tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
             st += relativedelta(months=+1)
         return tmp
+    
     elif gr == "day":
-        n = fn.day - st.day + 1
+        n = (fn - st).days + 1
         for i in range(n):
             tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
             st += relativedelta(days=+1)
+
         return tmp
+    
     elif gr == "hour" and st.day != fn.day:            
         for i in range(25):
             tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
             st += relativedelta(hours=+1)
         return tmp
 
+    elif gr == "hour" and st.day == fn.day:            
+        for i in range(24):
+            tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
+            st += relativedelta(hours=+1)
+        return tmp
 
 def get_key(dt_data, agr):
     if agr == "month":
@@ -43,12 +51,7 @@ def main_app(dt_from, dt_upto, group_type):
     dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
     d = init_dict(dt_from, dt_upto, group_type)
     if d is None:
-        return """
-        Допустимо отправлять только следующие запросы:
-    {"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}
-    {"dt_from": "2022-10-01T00:00:00", "dt_upto": "2022-11-30T23:59:00", "group_type": "day"}
-    {"dt_from": "2022-02-01T00:00:00", "dt_upto": "2022-02-02T00:00:00", "group_type": "hour"}
-        """
+        return "Недомустимый запрос"
 
     for val in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
         #print(val)
