@@ -1,3 +1,4 @@
+# I. Взрывоопасность
 
 def main():
     n = int(input())

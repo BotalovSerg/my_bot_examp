@@ -1,9 +1,4 @@
-# N, M, x, y = int(input()),int(input()),int(input()),int(input())
-
-# M_y = M - y
-# N_x = N - x
-
-# print(min(x, y, M_y, N_x))
+# D. Земля!
 
 def main():
     N, M, x, y = int(input()),int(input()),int(input()),int(input())

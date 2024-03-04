@@ -1,3 +1,5 @@
+# G. Письмо в службу поддержки
+
 a, b = int(input()), int(input())
 cnt = 0
 buff = ''

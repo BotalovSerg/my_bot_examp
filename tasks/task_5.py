@@ -1,3 +1,5 @@
+# E. Шнурки
+
 a,b,l,N = int(input()),int(input()),int(input()),int(input())
 
 one = (N*2-1)*a

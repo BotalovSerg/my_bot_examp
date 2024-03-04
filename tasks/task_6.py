@@ -1,3 +1,5 @@
+# F. Новый роутер
+
 x1 = int(input())
 y1 = int(input())
 x2 = int(input())
@@ -19,7 +21,9 @@ def new_router(x1, y1, x2, y2, x3, y3):
     return a_new_x, a_new_y, b_new_x, b_new_y
 
 res = new_router(x1, y1, x2, y2, x3, y3)
-if res:
-    print(*res, sep="\n")
-else:
+
+if not res:
     print(res)
+else:
+    for item in res:
+        print(item)
