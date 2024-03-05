@@ -7,8 +7,10 @@ y2 = int(input())
 x3 = int(input())
 y3 = int(input())
 
-def new_router(x1, y1, x2, y2, x3, y3):    
-    if x1 <= x3 <= x2 and y1 <= y3 <= y2:
+def new_router(x1, y1, x2, y2, x3, y3):
+    min_x, max_x = min(x1, x2), max(x1, x2)    
+    min_y, max_y = min(y1, y2), max(y1, y2)    
+    if min_x <= x3 <= max_x and min_y <= y3 <= max_y:
         return False
     d_ax = x3 - x1
     d_ay = y3 - y1
