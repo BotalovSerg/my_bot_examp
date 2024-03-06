@@ -1,14 +1,9 @@
 # K. Пахом и орфография
 
-# a, b = int(input()), int(input())
+a, b = int(input()), int(input())
 
-item = """*   *
-*  **
-* * *
-**  *
-*   *
-"""
-for i in range(2):
-    for j in range(2):
-        print(item)
+item = ["*   * ", "*  ** ", "* * * " , "**  * ", "*   * "]
+for i in range(a):
+    for s in item:
+        print(s * b)
     print()
