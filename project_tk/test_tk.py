@@ -1,19 +1,51 @@
 from tkinter import * 
 
 
-tk = Tk()
 
-tk.title("Exemple work kb")
-tk.geometry("300x150")
+class Block:
+    def __init__(self, master, func) -> None:
+        self.ent = Entry(master, width=20)
+        self.but = Button(master, text='Преобразователь')
+        self.lab = Label(master, width=20, bg='black', fg='white')
+        self.but['command'] = getattr(self, func)
+        self.ent.pack()
+        self.but.pack()
+        self.lab.pack()
 
-info = StringVar()
-info_str = "Press key with cod: "
+    def str_to_sort(self) -> None:
+        s = self.ent.get().split()
+        s.sort()
+        self.lab['text'] = ' '.join(s)
 
-def keypress(event):
-    info.set(info_str + str(event.keycode))
+    def str_reverse(self) -> None:
+        s = self.ent.get().split()
+        s.reverse()
+        self.lab['text'] = ' '.join(s)
 
-label = Label(tk, textvariable=info, font=("Arial", "20"))
-info.set("Press on key")
-label.pack()
-tk.bind('<Key>', keypress)
-tk.mainloop()
+root = Tk()
+
+fisrt_block = Block(root, 'str_to_sort')
+second_block = Block(root, 'str_reverse')
+
+
+
+
+# ent = Entry(root, width=20)
+# but = Button(root, text="Text")
+# lab = Label(root, width=20, bg='black', fg='white')
+
+# def str_to_sort_list(event):
+#     s = ent.get()
+#     s = s.split()
+#     s.sort()
+#     lab['text'] = " ".join(s)
+
+# but.bind('<Button-1>', str_to_sort_list)
+
+# ent.pack()
+# but.pack()
+# lab.pack()
+
+
+if __name__ == '__main__':
+    root.mainloop()
