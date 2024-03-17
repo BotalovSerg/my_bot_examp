@@ -9,12 +9,12 @@ class ButtonRainbow:
                 ('#007dff', 'голубой'), ('#0000ff', 'синий'),
                 ('#7d00ff', 'фиолетовый'))
     
-    def __init__(self, i, color=None, hex_color=None) -> None:
-        self.btn = Button(bg=ButtonRainbow._rainbow[i][0], width=15, command=self.clik)
+    def __init__(self, i, frame, color=None, hex_color=None) -> None:
+        self.btn = Button(frame, bg=ButtonRainbow._rainbow[i][0], width=1, command=self.clik)
         # self.btn.config(bg=hex_color, command=self.clik, width=15)
         self.color = self._rainbow[i][1]
         self.hex_color = self._rainbow[i][0]
-        self.btn.pack()
+        self.btn.pack(side=LEFT)
 
     def clik(self):
         lab['text'] = self.color
@@ -24,13 +24,16 @@ class ButtonRainbow:
 
 root = Tk()
 
-lab = Label(width=15, height=1, justify=CENTER)
+lab = Label(width=15, height=1)
 ent = Entry(width=15, justify=CENTER)
-lab.pack()
-ent.pack()
+frame = Frame(root)
 
+lab.pack(pady=5)
+ent.pack(pady=5)
+
+frame.pack()
 for i in range(7):
-    ButtonRainbow(i)
+    ButtonRainbow(i, frame)
 
 
 # #ff0000 – red, #ff7d00 – orange, 

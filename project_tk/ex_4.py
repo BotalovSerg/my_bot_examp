@@ -1,5 +1,16 @@
 from tkinter import *
 
+def insert_text():
+    s = "Hello World"
+    text.insert(1.0, s)
+
+def get_text():
+    s = text.get(1.0, END)
+    label['text'] = s
+
+def delete_text():
+    text.delete(1.0, END)
+
 
 root = Tk()
 # f_top = Frame(root)
@@ -21,6 +32,23 @@ l1.pack(side=LEFT)
 l2.pack(side=LEFT)
 l3.pack(side=LEFT)
 l4.pack(side=LEFT)
+
+text = Text(width=25, height=5)
+text.pack()
+
+frame = Frame()
+frame.pack()
+Button(frame, text='Insert', command=insert_text).pack(side=LEFT)
+Button(frame, text='Get', command=get_text).pack(side=LEFT)
+Button(frame, text='Delete', command=delete_text).pack(side=LEFT)
+
+label = Label()
+label.pack()
+
+# scroll = Scrollbar(command=text.yview)
+# scroll.pack(side=LEFT, fill=Y)
+
+# text.config(yscrollcommand=scroll.set)
 
 
 root.mainloop()
