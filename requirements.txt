@@ -22,3 +22,7 @@ python-dotenv==1.0.0
 pytz==2023.3
 six==1.16.0
 yarl==1.8.2
+chardet
+codetiming
+requests
+urllib3
