@@ -16,6 +16,7 @@ __pycache__/
 # C extensions
 *.so
 pass_email.py
+main_c
 # Distribution / packaging
 .Python
 build/
