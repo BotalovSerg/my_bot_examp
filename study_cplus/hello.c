@@ -1,13 +1,11 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
-
-    int a = 0, b = 0, c = 0;
-
-    int res_scan = scanf("%d, %d, %d", &a, &b, &c);
-
-    printf("%d %d %d\n", a, b, c);
+    int a = 6, b = 15;
+    double c = 0.3;
+    double res = a * (c * c) - b * c;
+    printf("%.2lf", res);
 
     return 0;
 }
