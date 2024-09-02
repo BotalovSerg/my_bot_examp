@@ -9,6 +9,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 __pycache__/
+.vscode/
 
 *.py[cod]
 *$py.class
