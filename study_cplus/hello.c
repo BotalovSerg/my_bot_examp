@@ -1,11 +1,22 @@
 #include <stdio.h>
 
-#define TWO     2
-#define FOUR    TWO * 2
-
 int main(void)
 {
-    int b = FOUR;
-    printf("TWO = %d\n", b / 2);
+    int n, m, s = 0;
+    scanf("%d %d", &n, &m);
+    for (int i = 0; i <= n; i++)
+    {
+        for (int j = 0; j <= m; j++)
+        {
+            if (i + j >= 10)
+            {
+                goto exit;
+            }
+            s += i + j;
+        }
+    }
+exit:
+    printf("%d", s);
+
     return 0;
 }
