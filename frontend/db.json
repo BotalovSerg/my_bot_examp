@@ -1,0 +1,36 @@
+{
+  "messages": [
+    {
+      "id": "1",
+      "text": "Hello!",
+      "author": {
+        "id": 1,
+        "name": "Sergey"
+      }
+    },
+    {
+      "id": "2",
+      "text": "How are you?",
+      "author": {
+        "id": 2,
+        "name": "You"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Good, thanks and you!",
+      "author": {
+        "id": 1,
+        "name": "Sergey"
+      }
+    },
+    {
+      "id": "11cc",
+      "text": "I'm grud",
+      "author": {
+        "id": 1,
+        "name": "You"
+      }
+    }
+  ]
+}
