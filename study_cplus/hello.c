@@ -2,21 +2,27 @@
 
 int main(void)
 {
-    int n, m, s = 0;
-    scanf("%d %d", &n, &m);
-    for (int i = 0; i <= n; i++)
+    char str[50] = "Best   language  \"C\"";
+    for (int i = 0; str[i] != '\0'; ++i)
     {
-        for (int j = 0; j <= m; j++)
+        if (str[i] == ' ')
         {
-            if (i + j >= 10)
+            if (str[i - 1] != '\n')
             {
-                goto exit;
+                str[i] = '\n';
             }
-            s += i + j;
+            else
+            {
+                int tmp = i;
+                while (str[tmp] == ' ')
+                {
+                    for (int j = tmp; str[j] != '\0'; ++j)
+                    {
+                        str[j] = str[j + 1];
+                    }
+                }
+            }
         }
     }
-exit:
-    printf("%d", s);
-
     return 0;
 }
