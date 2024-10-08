@@ -72,3 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ```
 json-server db.json 
 ```
+
+npm install установить зависимости
+npm install react-router-dom
