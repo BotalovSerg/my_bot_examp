@@ -1,0 +1,20 @@
+{
+  "messages": [
+    {
+      "id": "2",
+      "text": "How are you?",
+      "author": {
+        "id": 2,
+        "name": "You"
+      }
+    },
+    {
+      "id": "304d",
+      "text": "Hello",
+      "author": {
+        "id": 1,
+        "name": "You"
+      }
+    }
+  ]
+}
