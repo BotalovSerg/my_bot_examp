@@ -39,7 +39,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 migrations/
-alembic.ini
+# alembic.ini
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
