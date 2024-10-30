@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, status
 
 from core.models import db_helper
-from .schemas import CreateUser, UserSchema, TokenInfo
+from .schemas import UserSchema, TokenInfo, UserTgSchema
 from . import crud
 from .dependencies import validate_auth_user, get_current_auth_user
 from auth import utils as auth_utils
@@ -23,6 +23,16 @@ def auth_user_issue_jwt(user: UserSchema = Depends(validate_auth_user)):
 @router.get("/users/me/")
 def auth_user_check(user: UserSchema = Depends(get_current_auth_user)):
     return {"username": user.username, "email": user.email}
+
+
+@router.post("/get_token/")
+def get_token(user: UserTgSchema):
+    jwt_payload = {"sub": user.username, "tg_id": user.telegram_id}
+    token = auth_utils.encode_jwt(jwt_payload)
+    return TokenInfo(
+        access_token=token,
+        token_type="Bearer",
+    )
 
 
 # @router.post("/")

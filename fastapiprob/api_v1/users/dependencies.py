@@ -49,15 +49,13 @@ def get_current_auth_user(
     credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
 ) -> UserSchema:
     token = credentials.credentials
-    # print(token)
-    # try:
-    #     payload = auth_utils.dencode_jwt(token=token)
-    # except InvalidTokenError as e:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_401_UNAUTHORIZED,
-    #         detail="Invalide token",
-    #     )
-    payload = auth_utils.dencode_jwt(token=token)
+    try:
+        payload = auth_utils.dencode_jwt(token=token)
+    except InvalidTokenError as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
 
     username = payload.get("sub")
 

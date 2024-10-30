@@ -20,3 +20,8 @@ class UserSchema(BaseModel):
 class TokenInfo(BaseModel):
     access_token: str
     token_type: str
+
+
+class UserTgSchema(BaseModel):
+    username: str
+    telegram_id: int
