@@ -1,10 +1,17 @@
+#include <stdio.h>
 
-int sum_two(int a, int b)
+enum window_styles
 {
-    return a + b;
-}
+    border = 2,
+    caption = 4,
+    sizeable = 8
+};
 
-int abs_int(int n)
+int main(void)
 {
-    return (n < 0) ? -n : n;
+    enum window_styles style = 0;
+    style = border | caption;
+    printf("%d\n", style);
+
+    return 0;
 }
