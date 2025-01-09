@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <stdio.h>
 
 double triangle_sq(int a, int b, int c)
 {
