@@ -1,18 +1,35 @@
 #include <iostream>
-#include <cmath>
-#include <stdio.h>
+#include <string>
 
-double triangle_sq(int a, int b, int c)
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::to_string;
+
+enum
 {
-    double p = (a + b + c) / 2.0;
-    return std::sqrt(p * (p - a) * (p - b) * (p - c));
-}
+    max_cities = 10
+};
 
 int main()
 {
-    int a, b, c;
-    std::cin >> a >> b >> c;
-    printf("%.2f", triangle_sq(a, b, c));
+    string cities[max_cities];
+    string res;
+    size_t count = 0;
+    while (count < max_cities && cin >> cities[count])
+    {
+        count++;
+    }
+    for (string &item : cities)
+    {
+        if (item.size() > 5)
+        {
+            res += item + " ";
+        }
+        }
+    cout << res << endl;
+
     // __ASSERT_TESTS__ // макроопределение для тестирования (не убирать и должно идти непосредственно перед return 0)
     return 0;
 }
