@@ -1,17 +1,15 @@
 #include <stdio.h>
 
-enum window_styles
-{
-    border = 2,
-    caption = 4,
-    sizeable = 8
-};
-
 int main(void)
 {
-    enum window_styles style = 0;
-    style = border | caption;
-    printf("%d\n", style);
+    int n = 7;
+    while(n-- > 0) {
+        int n = 5;
+        printf("%d\n", n);
+        n++;
+    }
+    
+    printf("%d\n", n);
 
     return 0;
 }

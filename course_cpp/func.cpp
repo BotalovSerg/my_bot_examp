@@ -1,35 +1,24 @@
 #include <iostream>
-#include <string>
+#include <fstream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
-using std::to_string;
-
-enum
-{
-    max_cities = 10
-};
+using std::ios;
 
 int main()
 {
-    string cities[max_cities];
-    string res;
-    size_t count = 0;
-    while (count < max_cities && cin >> cities[count])
-    {
-        count++;
-    }
-    for (string &item : cities)
-    {
-        if (item.size() > 5)
-        {
-            res += item + " ";
-        }
-        }
-    cout << res << endl;
 
-    // __ASSERT_TESTS__ // макроопределение для тестирования (не убирать и должно идти непосредственно перед return 0)
+    short marks[] = {3, 3, 4, 3, 2, 2};
+
+    std::ofstream ofs("my_data.dat", ios::out | ios::binary);
+
+    if (!ofs)
+    {
+        std::cout << "Невозможно открыть файл";
+        return 1;
+    }
+
+    ofs << "hello" << std::endl;
+    ofs.write((char *)marks, sizeof(marks));
+
+    ofs.close();
     return 0;
 }
