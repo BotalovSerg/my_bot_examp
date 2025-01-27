@@ -1,24 +1,51 @@
 #include <iostream>
-#include <fstream>
+#include <iomanip>
 
-using std::ios;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fixed;
+using std::setprecision;
+
+double get_mean(const short *d, const size_t len)
+{
+    short s = 0;
+    for (size_t i = 0; i < len; ++i)
+    {
+        s += d[i];
+    }
+    return (double)s / (double)len;
+}
+double get_mean(const int *d, const size_t len)
+{
+    int s = 0;
+    for (size_t i = 0; i < len; ++i)
+    {
+        s += d[i];
+    }
+    return (double)s / (double)len;
+}
+double get_mean(const double *d, const size_t len)
+{
+    double s = 0;
+    for (size_t i = 0; i < len; ++i)
+    {
+        s += d[i];
+    }
+    return s / (double)len;
+}
 
 int main()
 {
 
-    short marks[] = {3, 3, 4, 3, 2, 2};
-
-    std::ofstream ofs("my_data.dat", ios::out | ios::binary);
-
-    if (!ofs)
+    short arr[100];
+    size_t count = 0;
+    double res;
+    while (cin >> arr[count])
     {
-        std::cout << "Невозможно открыть файл";
-        return 1;
+        ++count;
     }
+    cout << fixed << setprecision(2) << get_mean(arr, count) << endl;
 
-    ofs << "hello" << std::endl;
-    ofs.write((char *)marks, sizeof(marks));
-
-    ofs.close();
     return 0;
 }
