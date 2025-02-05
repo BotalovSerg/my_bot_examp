@@ -1,14 +1,40 @@
 #include <iostream>
+#include <cstdlib> // Для rand() и srand()
+#include <ctime>   // Для time()
 
-struct volume
+enum
 {
-    int width, height, depth;
-    int get_volume() { return width * height * depth; }
+    total_points = 128
 };
 
-int main(void)
+struct tag_point
 {
-    volume data{};
-    std::cin >> data.width >> data.height >> data.depth;
-    std::cout << data.get_volume() << std::endl;
+    float x;
+    float y;
+};
+
+int main()
+{
+    tag_point ps[total_points];
+
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    for (int i = 0; i < total_points; ++i)
+    {
+        ps[i].x = static_cast<float>(std::rand()) / RAND_MAX * 200.0f - 100.0f;
+        ps[i].y = static_cast<float>(std::rand()) / RAND_MAX * 200.0f - 100.0f;
+    }
+
+    double sum_x = 0.0, sum_y = 0.0;
+
+    for (int i = 0; i < total_points; ++i)
+    {
+        sum_x += ps[i].x;
+        sum_y += ps[i].y;
+    }
+
+    double mean_x = sum_x / total_points;
+    double mean_y = sum_y / total_points;
+
+    return 0;
 }
