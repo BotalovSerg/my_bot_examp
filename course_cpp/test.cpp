@@ -1,40 +1,32 @@
 #include <iostream>
-#include <cstdlib> // Для rand() и srand()
-#include <ctime>   // Для time()
 
-enum
+class StringData
 {
-    total_points = 128
-};
+    enum
+    {
+        max_length = 512
+    };
+    char str_data[max_length]{0};
+    int length{0};
 
-struct tag_point
-{
-    float x;
-    float y;
+public:
+    StringData() {}
+    StringData(const char *data)
+    {
+        int i = 0;
+        for (; i < max_length - 1 && data[i] != '\0'; ++i)
+            str_data[i] = data[i];
+        str_data[i] = '\0';
+        length = i + 1;
+    }
 };
 
 int main()
 {
-    tag_point ps[total_points];
+    StringData s1;
+    StringData s2 = "Hello, C++";
+    StringData *ptr_s3 = new StringData("Hello, Balakirev");
 
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
-
-    for (int i = 0; i < total_points; ++i)
-    {
-        ps[i].x = static_cast<float>(std::rand()) / RAND_MAX * 200.0f - 100.0f;
-        ps[i].y = static_cast<float>(std::rand()) / RAND_MAX * 200.0f - 100.0f;
-    }
-
-    double sum_x = 0.0, sum_y = 0.0;
-
-    for (int i = 0; i < total_points; ++i)
-    {
-        sum_x += ps[i].x;
-        sum_y += ps[i].y;
-    }
-
-    double mean_x = sum_x / total_points;
-    double mean_y = sum_y / total_points;
-
+    delete ptr_s3;
     return 0;
 }
