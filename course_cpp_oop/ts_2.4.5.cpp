@@ -12,6 +12,7 @@ struct Memory
 {
     std::string name;          // наименование
     unsigned long long volume; // размер памяти (в байтах)
+    Memory(std::string name = "", unsigned long long volume = 0) : name(name), volume(volume) {}
 };
 
 class MotherBoard
@@ -30,12 +31,15 @@ public:
 
 int main(void)
 {
-    CPU cp;
-    CPU intell("Core i7", 2.7);
+
+    CPU cpu("CORE i5", 1.7);
+    Memory mems[2]{{"Samsung", 4000000000}, {"Kingston", 8000000000}};
+
+    MotherBoard *ptr_mb = new MotherBoard(cpu, mems[0], mems[1]);
 
     // __ASSERT_TESTS__ // макроопределение для тестирования (не убирать и должно идти непосредственно перед return 0 или перед освобождением памяти)
 
-    // здесь освобождайте память
+    delete ptr_mb;
 
     return 0;
 }
