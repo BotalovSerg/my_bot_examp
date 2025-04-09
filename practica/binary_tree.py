@@ -1,4 +1,3 @@
-
 class BinaryTree:
     def __init__(self, value) -> None:
         self.key = value
@@ -35,7 +34,7 @@ class BinaryTree:
             current = next
             next = []
         return False
-    
+
     def invert(self):
         current = [self]
         next = []
@@ -51,7 +50,6 @@ class BinaryTree:
             current = next
             next = []
 
-            
 
 tree = BinaryTree(0)
 

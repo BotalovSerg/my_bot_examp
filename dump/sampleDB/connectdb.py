@@ -43,7 +43,7 @@ coll = db.newcol
 # query = {"name": "test_4"}
 # res = coll.find(query)
 # print(f"query: {type(res)}")
-    
+
 
 # d = dt.datetime(2022, 9, 1, 0)
 # f = dt.datetime(2022, 2, 2, 0)
@@ -54,8 +54,8 @@ dict_date = {}
 # for post in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
 #     key = post['dt'].strftime("%Y-%m-%d")
 #     dict_date[key] = dict_date.get(key, 0) + post["value"]
-    # with open('d.txt', '+a') as f:
-    #     print(post, file=f)
+# with open('d.txt', '+a') as f:
+#     print(post, file=f)
 
 # pprint.pprint(dict_date)
 d = (dt_upto - dt_from).days
