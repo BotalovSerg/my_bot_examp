@@ -4,7 +4,7 @@ body {
 }
 
 .header {
-    background-color: antiquewhite;
+    background-color: rgb(151, 138, 121);
     padding: 20px;
     display: flex;
     justify-content: space-around;
