@@ -9,6 +9,8 @@ import re
 import sys
 from typing import IO
 import urllib.error
+
+
 import urllib.parse
 
 import aiofiles
@@ -26,6 +28,7 @@ logging.getLogger("chardet.charsetprober").disabled = True
 
 HREF_RE = re.compile(r'href="(.*?)"')
 
+
 async def fetch_html(url: str, session: ClientSession, **kwargs) -> str:
     """GET request wrapper to fetch page HTML.
 
@@ -37,6 +40,7 @@ async def fetch_html(url: str, session: ClientSession, **kwargs) -> str:
     logger.info("Got response [%s] for URL: %s", resp.status, url)
     html = await resp.text()
     return html
+
 
 async def parse(url: str, session: ClientSession, **kwargs) -> set:
     """Find HREFs in the HTML of `url`."""
@@ -55,9 +59,7 @@ async def parse(url: str, session: ClientSession, **kwargs) -> set:
         )
         return found
     except Exception as e:
-        logger.exception(
-            "Non-aiohttp exception occured:  %s", getattr(e, "__dict__", {})
-        )
+        logger.exception("Non-aiohttp exception occured:  %s", getattr(e, "__dict__", {}))
         return found
     else:
         for link in HREF_RE.findall(html):
@@ -71,6 +73,7 @@ async def parse(url: str, session: ClientSession, **kwargs) -> set:
         logger.info("Found %d links for %s", len(found), url)
         return found
 
+
 async def write_one(file: IO, url: str, **kwargs) -> None:
     """Write the found HREFs from `url` to `file`."""
     res = await parse(url=url, **kwargs)
@@ -81,15 +84,15 @@ async def write_one(file: IO, url: str, **kwargs) -> None:
             await f.write(f"{url}\t{p}\n")
         logger.info("Wrote results for source URL: %s", url)
 
+
 async def bulk_crawl_and_write(file: IO, urls: set, **kwargs) -> None:
     """Crawl & write concurrently to `file` for multiple `urls`."""
     async with ClientSession() as session:
         tasks = []
         for url in urls:
-            tasks.append(
-                write_one(file=file, url=url, session=session, **kwargs)
-            )
+            tasks.append(write_one(file=file, url=url, session=session, **kwargs))
         await asyncio.gather(*tasks)
+
 
 if __name__ == "__main__":
     import pathlib
