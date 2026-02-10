@@ -1,15 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
     <title>Document</title>
+    <style>
+      .selected {
+        color: red;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    </style>
   </head>
   <body>
     <header>
       <h1>hello</h1>
     </header>
-    <script src="./main.js"></script>
+    <p>Приветики!</p>
+    <div class="news"></div>
+    <a href="https://selectel.ru/blog/all/">Наш блог</a>
+    <p>Ссылки:</p>
+    <ul>
+      <li><a class="item" href="https://selectel.ru/blog/divoom-timegate/">Divoom Timegate</a></li>
+      <li><a class="item" href="https://selectel.ru/blog/three-qwen-models/">Qwen</a></li>
+      <li><a class="item" href="https://selectel.ru/blog/quiz-regex/">RegEx</a></li>
+    </ul>
+    <ul>
+      <li class="product">Яблоки</li>
+      <li id="special-offer" class="product">Бананы (Скидка!)</li>
+      <li class="product">Апельсины</li>
+    </ul>
+    <!-- <script src="./main.js"></script> -->
+    <script src="./domtree.js"></script>
   </body>
 </html>

@@ -42,3 +42,41 @@ switch (animal) {
     console.log("Это мне неизвестно.");
     break;
 }
+const arr = [[5, 32, 15, 9], [83, -22, 7], [], [81, 10, 0]];
+let sum = 0;
+for (let i = 0; i < arr.length; i++) {
+  for (let j = 0; j < arr[i].length; j++) {
+    if (arr[i][j] > 0) {
+      sum += arr[i][j];
+    }
+  }
+}
+console.log(sum);
+
+function generateChessBoard(x) {
+  const arr = [];
+  for (let i = 0; i < x; i++) {
+    let innderArr = [];
+    for (let j = 0; j < x; j++) {
+      if ((i + j) % 2 === 0) {
+        innderArr.push(".");
+      } else {
+        innderArr.push("#");
+      }
+    }
+    arr.push(innderArr);
+  }
+  return arr;
+}
+
+console.log(generateChessBoard(3));
+console.log(generateChessBoard(4));
+console.log(generateChessBoard(5));
+
+for (let i = 0; i < 5; i++) {
+  if (i % 2 === 0) {
+    // если число четное 
+    continue;
+  }
+  console.log("Тест");
+}
