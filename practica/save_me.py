@@ -1,3 +1,6 @@
+from pprint import pprint
+
+
 def save_board(n):
     with open("chess_board.txt", "w", encoding="utf-8") as f:
         for i in range(n):
@@ -50,3 +53,63 @@ def export_poll_results(*args):
             s = sorted(res[key].split(","))
             line = f"{i}. {", ".join(s)} — {key} голосов\n"
             f.write(line)
+
+
+def generate_receipt(purchases: list[dict]):
+    with open("receipt.txt", "w", encoding="utf-8") as f:
+        f.write("==== Чек покупок ====\n")
+        total = 0
+        for i, item in enumerate(purchases, 1):
+            name = item.get("название")
+            price = item.get("цена")
+            quantity = item.get("количество")
+            tmp = price * quantity
+            f.write(f"{i}. {name} ({quantity:.2f} × {price:.2f}) = {tmp:.2f}\n")
+            total += tmp
+        end = f"---------------------\nИТОГО: {total:.2f} руб\n======================"
+        f.write(end)
+
+
+# purchases = [
+#     {"название": "Яблоко", "цена": 30.5, "количество": 3},
+#     {"название": "Хлеб", "цена": 45.1, "количество": 1.5},
+#     {"название": "Молоко", "цена": 60.44, "количество": 2},
+# ]
+purchases = [
+    {"название": "Шоколад", "цена": 99.99, "количество": 2},
+    {"название": "Сок", "цена": 50.5, "количество": 1.2},
+]
+
+
+def map_coordinates(coords):
+    return [(int(coord[1:]) - 1, ord(coord[0]) - ord("A")) for coord in coords]
+
+
+def mark_hits(field_file, shots_file):
+    with open(
+        field_file,
+        encoding="utf-8",
+    ) as f1, open(
+        shots_file,
+        encoding="utf-8",
+    ) as f2, open(
+        "updated_field.txt",
+        "w",
+        encoding="utf-8",
+    ) as f3:
+        fields = list(line.strip().split() for line in f1.readlines())
+        shots = map_coordinates(list(line.strip() for line in f2.readlines()))
+
+        for i in range(len(fields)):
+            for j in range(len(fields)):
+                if (i, j) in shots:
+                    if fields[i][j] == "■":
+                        fields[i][j] = "X"
+                    else:
+                        fields[i][j] = "•"
+        for s in fields:
+            line = " ".join(s)
+            f3.write(line + "\n")
+
+
+mark_hits("field.txt", "shots.txt")
