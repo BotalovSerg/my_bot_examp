@@ -26,3 +26,41 @@ with open("group_people.json", encoding="utf-8") as f:
             m_count = count
             m_id = item.get("id_group")
     print(f"id {m_id} - count {m_count}")
+
+
+def decode_text(text: str, alphabet: str):
+    with open(
+        text,
+        encoding="utf-8",
+    ) as f1, open(
+        alphabet,
+        encoding="utf-8",
+    ) as f2, open(
+        "decoded.txt",
+        "w",
+        encoding="utf-8",
+    ) as f3:
+        line = f1.read()
+        alp = json.load(f2)
+        print(line)
+        for c in line:
+            if c in alp:
+                f3.write(alp[c])
+            else:
+                f3.write(c)
+
+
+def find_best_manager(path_file: str):
+    with open(path_file, encoding="utf-8") as f:
+        data = json.load(f)
+        best_manager = {}
+        max_sum = 0
+        for item in data:
+            tmp_sum = 0
+            for car in item["cars"]:
+                tmp_sum += car["price"]
+            if tmp_sum > max_sum:
+                max_sum = tmp_sum
+                best_manager = item["manager"].copy()
+
+        print(f"{best_manager['first_name']} {best_manager['last_name']} {max_sum}")
