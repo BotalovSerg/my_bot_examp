@@ -1,0 +1,38 @@
+[
+  {
+    "languages": [
+      "Python"
+    ],
+    "votes": 30,
+    "percent": 30.0
+  },
+  {
+    "languages": [
+      "Java",
+      "Rust"
+    ],
+    "votes": 20,
+    "percent": 20.0
+  },
+  {
+    "languages": [
+      "Go"
+    ],
+    "votes": 15,
+    "percent": 15.0
+  },
+  {
+    "languages": [
+      "Kotlin"
+    ],
+    "votes": 10,
+    "percent": 10.0
+  },
+  {
+    "languages": [
+      "C++"
+    ],
+    "votes": 5,
+    "percent": 5.0
+  }
+]
