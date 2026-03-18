@@ -1,29 +1,58 @@
-def multi(num):
-    res = 1
-    while num > 0:
-        res *= num%10
-        num //= 10
-    return res
+from enum import Enum
 
 
-def dig_pow(n, p):
-    res = n
-    n = int(str(n)[::-1])
-    tmp = 0
-    while n > 0:
-        tmp += (n%10)**p
-        n //= 10
-        p += 1
-    if tmp % res == 0:
-        return tmp // res
-    return -1
+class TypeBook(Enum):
+    DRAMA = 3
+    THRILLER = "thriller"
+    LOVESTORY = (0, 1, 2)
+
+    @classmethod
+    def get_default(cls):
+        return cls.LOVESTORY
 
 
-def find_next_square(sq):
-    sqr_num = sq ** 0.5
-    
-    return (sqr_num+1)**2 if sq%sqr_num == 0 else -1
+p_th = TypeBook.THRILLER
 
-print(find_next_square(121))
-print(find_next_square(625))
-print(find_next_square(114))
+print(p_th.name, p_th.value)
+
+
+class TypeDigit(Enum):
+    INT = 1
+    REAL = 2
+    COMPLEX = 3
+
+
+def factory_digit(*args, t: TypeDigit = TypeDigit.REAL):
+    if t == TypeDigit.INT:
+        return int(args[0])
+    if t == TypeDigit.REAL:
+        return float(args[0])
+    if t == TypeDigit.COMPLEX:
+        return complex(args[0], args[1])
+
+
+cmp = factory_digit(4.3, 2.1, t=TypeDigit.COMPLEX)
+print(cmp)
+
+
+class StyleWindow(Enum):
+    CAPTION = 1
+    DIALOG = 2
+    BORDER = 4
+
+
+class WindowStyle(Enum):
+    CAPTION = 1
+    DIALOG = 2
+    BORDER = 4
+
+
+p1 = StyleWindow.DIALOG
+p2 = WindowStyle.DIALOG
+
+
+print(p1 == p2)
+print(p1.name != p2.name)
+# print(p1 <= p2)
+print(p1.value == p2.value)
+print(p1 == 2)
