@@ -1,79 +1,65 @@
-import json
-import pymongo
-import datetime as dt
-from dateutil.relativedelta import relativedelta
-#client = pymongo.MongoClient("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0")
-client = pymongo.MongoClient("mongodb://127.0.0.1:27017")
-db = client.newdb
-coll = db.newcol
-
-def init_dict(st, fn, gr):
-    tmp = {}
-    if gr == "month":
-        n = fn.month - st.month + 1
-        for i in range(n):
-            tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
-            st += relativedelta(months=+1)
-        return tmp
-    
-    elif gr == "day":
-        n = (fn - st).days + 1
-        for i in range(n):
-            tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
-            st += relativedelta(days=+1)
-
-        return tmp
-    
-    elif gr == "hour" and st.day != fn.day:            
-        for i in range(25):
-            tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
-            st += relativedelta(hours=+1)
-        return tmp
-
-    elif gr == "hour" and st.day == fn.day:            
-        for i in range(24):
-            tmp[st.strftime("%Y-%m-%dT%H:%M:%S")] = 0            
-            st += relativedelta(hours=+1)
-        return tmp
-
-def get_key(dt_data, agr):
-    if agr == "month":
-        return dt_data.strftime("%Y-%m") + "-01T00:00:00"
-    elif agr == "day":
-        return dt_data.strftime("%Y-%m-%d") + "T00:00:00"
-    elif agr == "hour":
-        return dt_data.strftime("%Y-%m-%dT%H") + ":00:00"
+from copy import deepcopy
+from dataclasses import dataclass, field
 
 
- 
-def main_app(dt_from, dt_upto, group_type):
-    dt_from = dt.datetime.strptime(dt_from, "%Y-%m-%dT%H:%M:%S")
-    dt_upto = dt.datetime.strptime(dt_upto, "%Y-%m-%dT%H:%M:%S")
-    d = init_dict(dt_from, dt_upto, group_type)
-    if d is None:
-        return "Недомустимый запрос"
+@dataclass
+class Author:
+    first_name: str
+    last_name: str
+    _temp_data: list = field(default_factory=list)
 
-    for val in coll.find({"dt": {"$gte" : dt_from, "$lte": dt_upto}}, {"_id":  0}):
-        #print(val)
-        #key = str(val["dt"].year) + "/" + str(val["dt"].month)
-        k = get_key(val["dt"], group_type)   
-        #d[key] = d.get(key, []) + [val["value"]]
-        d[k] = d.get(k, 0) + val["value"]
-
-    res = {
-    "dataset" : [],
-    "labels" : []
-    }   
-
-    for key, val in d.items():
-       res["dataset"].append(val)
-       res["labels"].append(key)
-
-    return json.dumps(res)
+    def __repr__(self):
+        return f"{self.first_name, self.last_name}: id_author = {id(self)}"
 
 
+@dataclass
+class Book:
+    title: str
+    author: Author
+    _cash: list = field(default_factory=list)
 
-# dt_from = dt.datetime.strptime("2022-10-01T00:00:00", "%Y-%m-%dT%H:%M:%S")
-# dt_upto = dt.datetime.strptime("2022-11-30T23:59:00", "%Y-%m-%dT%H:%M:%S")
-# group_type = "day"
-# print(main_app(dt_from, dt_upto, group_type))
+    def __deepcopy__(self, memo: dict = {}):
+        if self in memo:
+            return memo[self]
+
+        book_cp = Book(self.title, deepcopy(self.author))
+        memo[self] = book_cp
+        book_cp._cash = field(default_factory=list)
+
+        return book_cp
+
+    def __repr__(self):
+        return f"{self.title, self.author}: id = {id(self)}"
+
+
+class Library:
+    def __init__(self, books: list[Book] | None = None):
+        self.books = books if books else []
+
+    def __deepcopy__(self, memo: dict = {}):
+        if self in memo:
+            return memo[self]
+
+        lib_cp = Library()
+        memo[self] = lib_cp
+        lib_cp.books = [deepcopy(deepcopy(obj), memo) for obj in self.books]
+
+        return lib_cp
+
+    def add_book(self, book):
+        self.books.append(book)
+
+    def show_books(self):
+        for b in self.books:
+            print(b)
+
+
+books_list = [
+    Book("Евгений Онегин", Author("Александр", "Пушкин")),
+    Book("Анна Каренина", Author("Лев", "Толстой")),
+    Book("Алые паруса", Author("Александр", "Грин")),
+    Book("Фауст", Author("Иоганн", "Гёте")),
+]
+
+lib = Library(books_list)
+lib_cpy = deepcopy(lib)
